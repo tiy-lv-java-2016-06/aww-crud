@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bottle</title>
+</head>
+<body>
+    <form action="/edit-bottle" method="post">
+        <input type="text" placeholder="Bottle name" name="bottleName" width="150">
+        <select name="bottleProducer">
+            <option selected value="pm">Phillipe Melka</option>
+            <option value="gallo">Gallo</option>
+        </select>
+        <select name="bottleRegion">
+            <option selected value="napa">Napa Valley</option>
+            <option value="bordeaux">Bordeaux</option>
+            <option value="beaujolais">Beaujolais</option>
+            <option value="sonoma">Sonoma County</option>
+            <option value="walla">Walla Walla</option>
+        </select>
+        <select name="bottleVintage">
+            <option selected value="1990">1990</option>
+            <option selected value="1991">1991</option>
+            <option selected value="1992">1992</option>
+            <option selected value="1993">1993</option>
+            <option selected value="1994">1994</option>
+        </select>
+        <select name="bottleVariety">
+            <option selected value="riesling">Riesling</option>
+            <option selected value="pinotgris">Pinot Gris</option>
+            <option selected value="sauvignonblanc">Sauvignon Blanc</option>
+            <option selected value="chardonnay">Chardonnay</option>
+            <option selected value="pinotnoir">Pinot Noir</option>
+            <option selected value="zin">Zinfandel</option>
+            <option selected value="syrah">Syrah</option>
+            <option selected value="cabernet">Cabernet Sauvignon</option>
+        </select>
+        <select name="bottleABV">
+            <option selected value="5.5">5.5%</option>
+            <option value="10">10%</option>
+            <option value="11.5">11.5%</option>
+            <option value="14">14%</option>
+            <option value="21">21%</option>
+        </select>
+        <button type="submit">Update</button>
+    </form>
+
+</body>
+</html>
