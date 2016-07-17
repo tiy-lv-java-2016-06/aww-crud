@@ -56,12 +56,12 @@
     {{#user.myBottles}}
     <li>{{name}} - {{producer}} - {{region}} - {{vintage}} - {{variety}} - {{abv}}</li>
     <form action="/edit-bottle" method="post">
-        <input type="hidden" value="{{bottleName}}" name="bottleName"/>
+        <input type="hidden" value="{{name}}" name="bottleName"/>
         <a href="/edit-bottle?bottleName={{name}}">Edit Bottle</a>
     </form>
     <form action="/delete-bottle" method="post">
-        <input type="hidden" value="{{bottleName}}" name="bottleName"/>
-        <button type="submit" onclick="/delete-bottle?bottleName={{name}}">Delete Bottle</button>
+        <input type="hidden" value="{{name}}" name="bottleName"/>
+        <button type="submit">Delete Bottle</button>
     </form>
     {{/user.myBottles}}
 </ol>

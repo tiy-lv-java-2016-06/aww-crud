@@ -26,10 +26,12 @@ public class Main {
             User user = users.get(name);
 
             if(user == null){
+                m.put("allBottles", allBottles);
                 return new ModelAndView(m, "index.html");
             }
             else {
                 m.put("user", user);
+                m.put("allBottles", allBottles);
                 return new ModelAndView(m, "index.html");
             }
         }, new MustacheTemplateEngine());
