@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit your message</title>
+</head>
+<body>
+    {{#editCar}}
+        <form method="post" action="/edit">
+            <input type="text" value="{{make}}" name="make"/>
+            <input type="text" value="{{model}}" name="model"/>
+            <input type="text" value="{{year}}" name="year"/>
+            Current Selection {{drivetrain}}
+            <select name="drivetrain">
+                <option selected value="RW">Rear Wheel Drive</option>
+                <option value="FR">Front Wheel Drive</option>
+                <option value="4WD">All Wheel Drive</option>
+            </select>
+            <input type="hidden" value="{{carId}}" name="carId"/>
+            <button type="submit">Edit</button>
+        </form>
+    {{/editCar}}
+</body>
+</html>

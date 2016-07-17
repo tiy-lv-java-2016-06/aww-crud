@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <title>Home Page</title>
+    </head>
+
+    <body>
+        {{^userName}}
+            <div class="navbar navbar-inverse navbar-fixed-top text-center">
+                <form action="/login" method="post">
+                    <h1>Welcome to: Aww Crud</h1>
+                    <input type="text" placeholder="Enter Username" name="userName">
+                    <button type="submit" class="btn btn-success">Login</button>
+                </form>
+            </div>
+        {{/userName}}
+
+        <div class="container text-center">
+            {{#userName}}
+
+                <div class="jumbotron">
+                    <h1>Welcome {{userName}}!</h1>
+                    <form action="/logout" method="post"><button type="submit" class="btn btn-danger">Logout</button></form>
+                    <p>Below, you will see your list of cars. If you see none, that's because you have entered none. Enjoy!</p>
+                </div>
+
+                <div class="container">
+                    <form class="form-inline" action="/create-car" method="post">
+                        <div class="form-group">
+                            <input class="col-md-2" type="text" placeholder="Make" name="make"/>
+                            <input class="col-md-2" type="text" placeholder="Model" name="model"/>
+                            <input class="col-md-2" type="text" placeholder="Year" name="year"/>
+                            <select class="col-md-2 form-group" name="drivetrain">
+                                <option selected value="RW">Rear Wheel Drive</option>
+                                <option value="FR">Front Wheel Drive</option>
+                                <option value="4WD">All Wheel Drive</option>
+                            </select>
+                            <button type="submit" class=" form-group btn btn-success col-md-2">Add car</button>
+                        </div>
+                    </form>
+
+                    {{#userCars}}
+                        <form class="form-inline text-center" action="/delete?carId={{carId}}" method="post" >
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <ul class="list-group">
+                                        <li class="list-group-item list-group-item-success">{{make}} - {{model}} - {{drivetrain}} - {{year}} ** <a href="/edit?carId={{carId}}" >Edit</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-danger" style="display:inline-block;">Delete</button>
+                                </div>
+                            </div>
+                        </form>
+                    {{/userCars}}
+                </div>
+            {{/userName}}
+
+            <h2>Here are the cars other Petrol-Heads have entered:</h2>
+
+            <div class="bg-info">
+                <ul class="list-group">
+                    {{#currentPage}}
+                        <li class="list-group-item list-group-item-success">{{make}} - {{model}} - {{drivetrain}} - {{year}}</li>
+                    {{/currentPage}}
+                </ul>
+                {{#viewPrevious}}
+                    <a href="/?page={{previous}}">Pervious Page</a><br><br>
+                {{/viewPrevious}}
+                {{#viewNext}}
+                    <a href="/?page={{next}}">Next Page</a>
+                {{/viewNext}}
+            </div>
+        </div>
+
+        <footer class="navbar navbar-default navbar-fixed-bottom text-center">
+            <div class="container">
+                <p class="text-muted">Product of ChocoDonis Industries &reg;</p>
+            </div>
+        </footer>
+    </body>
+</html>
