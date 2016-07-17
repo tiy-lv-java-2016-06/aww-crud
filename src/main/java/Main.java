@@ -20,7 +20,7 @@ public class Main {
         Spark.init();
 
         Spark.get("/", (request, response) -> {
-            HashMap m = new HashMap();
+            Map m = new HashMap();
             Session session = request.session();
             String name = session.attribute(SESSION_USER);
             User user = users.get(name);
@@ -29,13 +29,13 @@ public class Main {
                 return new ModelAndView(m, "index.html");
             }
             else {
-                m.put(name, user);
+                m.put("user", user);
                 return new ModelAndView(m, "index.html");
             }
         }, new MustacheTemplateEngine());
 
         Spark.get("/login", (request, response) -> {
-            HashMap m = new HashMap();
+            Map m = new HashMap();
             return new ModelAndView(m, "index.html");
         }, new MustacheTemplateEngine());
 
@@ -60,12 +60,11 @@ public class Main {
             else {
                 response.redirect("/login");
             }
-
             return "";
         });
 
         Spark.get("/create-bottle", (request, response) -> {
-            HashMap m = new HashMap();
+            Map m = new HashMap();
             return new ModelAndView(m, "index.html");
         }, new MustacheTemplateEngine());
 
@@ -98,13 +97,18 @@ public class Main {
             User user = users.get(name);
 
             String bottleName = request.queryParams("bottleName");
-            user.myBottles.remove(bottleName);
-            allBottles.remove(bottleName);
+
+            for(Bottle bottle : user.myBottles){
+                if(bottle.getName().equals(bottleName)){
+                    user.myBottles.remove(bottle);
+                    allBottles.remove(bottle);
+                }
+            }
             response.redirect("/");
             return "";
         });
         Spark.get("/edit-bottle", (request, response) -> {
-            HashMap m = new HashMap();
+            Map m = new HashMap();
             return new ModelAndView(m, "bottles.html");
         }, new MustacheTemplateEngine());
 
@@ -120,11 +124,14 @@ public class Main {
             String bottleVariety = request.queryParams("bottleVariety");
             float bottleABV = Float.valueOf(request.queryParams("bottleABV"));
 
-
-            user.myBottles.remove(bottleName);
-            user.myBottles.add(new Bottle(bottleName, bottleProducer, bottleRegion, bottleVintage, bottleVariety, bottleABV));
-            allBottles.remove(name);
-            allBottles.add(new Bottle(bottleName, bottleProducer, bottleRegion, bottleVintage, bottleVariety, bottleABV));
+            for(Bottle bottle : user.myBottles){
+                if(bottle.getName().equals(bottleName)){
+                    user.myBottles.remove(bottle);
+                    user.myBottles.add(new Bottle(bottleName, bottleProducer, bottleRegion, bottleVintage, bottleVariety, bottleABV));
+                    allBottles.remove(bottle);
+                    allBottles.add(new Bottle(bottleName, bottleProducer, bottleRegion, bottleVintage, bottleVariety, bottleABV));
+                }
+            }
             response.redirect("/");
             return "";
         });

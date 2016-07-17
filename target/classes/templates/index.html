@@ -14,15 +14,15 @@
 <form action="/create-bottle" method="post">
     <input type="text" placeholder="Bottle name" name="bottleName" width="150">
     <select name="bottleProducer">
-        <option selected value="pm">Phillipe Melka</option>
-        <option value="gallo">Gallo</option>
+        <option selected value="Phillipe Melka">Phillipe Melka</option>
+        <option value="Gallo">Gallo</option>
     </select>
     <select name="bottleRegion">
-        <option selected value="napa">Napa Valley</option>
-        <option value="bordeaux">Bordeaux</option>
-        <option value="beaujolais">Beaujolais</option>
-        <option value="sonoma">Sonoma County</option>
-        <option value="walla">Walla Walla</option>
+        <option selected value="Napa Valley">Napa Valley</option>
+        <option value="Bordeaux">Bordeaux</option>
+        <option value="Beaujolais">Beaujolais</option>
+        <option value="Sonoma County">Sonoma County</option>
+        <option value="Walla Walla">Walla Walla</option>
     </select>
     <select name="bottleVintage">
         <option selected value="1990">1990</option>
@@ -32,14 +32,14 @@
         <option selected value="1994">1994</option>
     </select>
     <select name="bottleVariety">
-        <option selected value="riesling">Riesling</option>
-        <option selected value="pinotgris">Pinot Gris</option>
-        <option selected value="sauvignonblanc">Sauvignon Blanc</option>
-        <option selected value="chardonnay">Chardonnay</option>
-        <option selected value="pinotnoir">Pinot Noir</option>
-        <option selected value="zin">Zinfandel</option>
-        <option selected value="syrah">Syrah</option>
-        <option selected value="cabernet">Cabernet Sauvignon</option>
+        <option selected value="Riesling">Riesling</option>
+        <option selected value="Pinot Gris">Pinot Gris</option>
+        <option selected value="Sauvignon Blanc">Sauvignon Blanc</option>
+        <option selected value="Chardonnay">Chardonnay</option>
+        <option selected value="Pinot Noir">Pinot Noir</option>
+        <option selected value="Zin">Zinfandel</option>
+        <option selected value="Syrah">Syrah</option>
+        <option selected value="Cabernet">Cabernet Sauvignon</option>
     </select>
     <select name="bottleABV">
         <option selected value="5.5">5.5%</option>
@@ -51,20 +51,27 @@
     <button type="submit">Add New Bottle</button>
 </form>
 
-<h3>List of your bottles:</h3>
+<h3>{{name}}'s bottles:</h3>
 <ol>
     {{#user.myBottles}}
     <li>{{name}} - {{producer}} - {{region}} - {{vintage}} - {{variety}} - {{abv}}</li>
     <form action="/edit-bottle" method="post">
         <input type="hidden" value="{{bottleName}}" name="bottleName"/>
-        <button type="submit" onclick="bottles.html">Edit Bottle</button>
+        <a href="/edit-bottle?bottleName={{name}}">Edit Bottle</a>
     </form>
     <form action="/delete-bottle" method="post">
         <input type="hidden" value="{{bottleName}}" name="bottleName"/>
-        <button type="submit">Delete Bottle</button>
+        <button type="submit" onclick="/delete-bottle?bottleName={{name}}">Delete Bottle</button>
     </form>
     {{/user.myBottles}}
 </ol>
+
+<h4>List of all bottles:</h4>
+<ul>
+    {{#/.allBottles}}
+    <li>{{name}} - {{producer}} - {{region}} - {{vintage}} - {{variety}} - {{abv}}</li>
+    {{//.allBottles}}
+</ul>
 
 {{/user}}
 
@@ -74,7 +81,8 @@
     <input type="text" placeholder="Enter your password" size="40" name="submitPassword">
     <button type="submit">Login</button>
 </form>
-
+</br>
+<h4>List of all bottles:</h4>
 <ul>
     {{#allBottles}}
     <li>{{name}} - {{producer}} - {{region}} - {{vintage}} - {{variety}} - {{abv}}</li>
