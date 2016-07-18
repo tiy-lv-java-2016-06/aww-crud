@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+
+{{#userRestaurant}}
+
+<form action="/edit-restaurant" method="post">
+    <input type="text" name="restaurantName" value="{{name}}"/>
+    Your current selected is {{menuType}}
+    <select name="menuType">
+        <option selected value="american">American</option>
+        <option value="mexican">Mexican</option>
+        <option value="italian">Italian</option>
+        <option value="chinese">Chinese</option>
+        <option value="thai">Thai</option>
+    </select>
+    <input type="text" value="{{address}}" name="restaurantAddress"/>
+    <input type="number" value="{{rating}}" name="restaurantRating"/>
+    <input type="hidden" value="{{restaurantId}}" name="restaurantId"/>
+    <button type="submit" class="btn btn-danger">Submit</button>
+</form>
+
+{{/userRestaurant}}
+
+</body>
+</html>
