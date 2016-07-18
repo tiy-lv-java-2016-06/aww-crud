@@ -39,7 +39,7 @@
     </form>
     {{/user}}
 
-    <div >
+    <div class="container">
         <ul>{{#user}}
         <h2>{{user}}, this is your current entries.</h2>
         <h4>Feel free to add, edit, or delete your entires!</h4>
@@ -62,7 +62,7 @@
         </ul>
     </div>
 
-    <a href="/next?page={{page}}"><input type="hidden" value="{{pageNumber}}" name="pageNumber"/> Next > </a>
+    <a href="/?page={{pageNumber}}"><input type="hidden" value="{{pageNumber}}" name="pageNumber"/> Next > </a>
 
 </body>
 </html>

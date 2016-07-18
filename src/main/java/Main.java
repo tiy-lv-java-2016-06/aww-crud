@@ -174,10 +174,6 @@ public class Main {
             return "";
         });
 
-        Spark.get("/next" , (request, response) -> {
-            
-
-        });
 
     }
 }
