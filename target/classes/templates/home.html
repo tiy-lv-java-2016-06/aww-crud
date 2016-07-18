@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <title>Home</title>
+</head>
+<body>
+
+    {{#user}}
+    <h3>Welcome {{user}}</h3>
+    <p>Below you may create new entries of restaurants you have been to and rate your overall experience there!</p>
+    <form action="/logout" method="post">
+        <button type="submit" class="btn btn-danger">Logout</button></form>
+    <br/>
+    <form action="/create-restaurant" method="post">
+        <input type="text" placeholder="Restaurant Name" name="restaurantName"/>
+        <select name="menuType">
+            <option selected value="american">American</option>
+            <option value="mexican">Mexican</option>
+            <option value="italian">Italian</option>
+            <option value="chinese">Chinese</option>
+            <option value="thai">Thai</option>
+        </select>
+        <input type="text" placeholder="Restaurant Address" name="restaurantAddress"/>
+        <input type="number" placeholder="Restaurant Rating" name="restaurantRating"/>
+        <input type="hidden" value="{{restaurantId}}" name="restaurantId"/>
+        <button type="submit" class="btn btn-info">Submit</button>
+    </form>
+    {{/user}}
+    {{^user}}
+    <form action="/create-user" method="post">
+        <input type="text" placeholder="Enter your name" name="loginName"/>
+        <button type="submit" class="btn btn-danger">Login</button>
+    </form>
+    {{/user}}
+
+    <div class="container">
+        <ul>{{#user}}
+        <h2>{{user}}, this is your current entries.</h2>
+        <h4>Feel free to add, edit, or delete your entires!</h4>
+        {{#userRestaurants}}
+        <li>{{author}}: {{name}}, {{menuType}}, {{address}}, {{rating}}</li>
+        <span><a href="/edit?restaurantId={{restaurantId}}">Edit</a></span>
+        <form action="/delete?restaurantId={{restaurantId}}" method="post">
+            <button type="submit">Delete</button>
+        </form>
+        {{/userRestaurants}}
+        </ul>{{/user}}
+
+        <ul>
+            <h2>Cant touch these entries!!</h2>
+            <p>Here are entries other users have made for you to view.</p>
+
+            {{#currentPageList}}
+                <li>{{author}}: {{name}}, {{menuType}}, {{address}}, {{rating}}</li>
+            {{/currentPageList}}
+        </ul>
+
+        <a href="/?page={{pageNumber}}"><input type="hidden" value="{{pageNumber}}" name="pageNumber"/> Next > </a>
+    </div>
+</body>
+</html>
