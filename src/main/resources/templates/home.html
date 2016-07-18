@@ -56,9 +56,9 @@
             <h2>Cant touch these entries!!</h2>
             <p>Here are entries other users have made for you to view.</p>
 
-            {{#totalRestaurants}}
+            {{#currentPageList}}
                 <li>{{author}}: {{name}}, {{menuType}}, {{address}}, {{rating}}</li>
-            {{/totalRestaurants}}
+            {{/currentPageList}}
         </ul>
 
         <a href="/?page={{pageNumber}}"><input type="hidden" value="{{pageNumber}}" name="pageNumber"/> Next > </a>

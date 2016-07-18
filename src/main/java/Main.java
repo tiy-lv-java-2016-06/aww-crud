@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class Main {
     static int pageNumber = 1;
-    static int pageLimit = 5;
+    static int restaurantLimitPerPage = 5;
     static int id = 0;
     static List<Restaurant> restaurants = new ArrayList<>();
     static Map<String, User> users = new HashMap<>();
@@ -30,7 +30,7 @@ public class Main {
 
             List<Restaurant> userRestaurants = new ArrayList();
             List<Restaurant> totalRestaurants = new ArrayList();
-            List<Restaurant> overLimitList = new ArrayList();
+            List<Restaurant> currentPageList = new ArrayList();
 
             for (Restaurant restaurant: restaurants){
                 if(restaurant.getAuthor().equals(userName)){
@@ -41,20 +41,27 @@ public class Main {
                 }
             }
 
-            if(totalRestaurants.size() <= pageLimit){
+            String pageString = request.queryParams("pageNumber");
+            
+            if(totalRestaurants.size() <= restaurantLimitPerPage){
                 for (Restaurant restaurant : totalRestaurants){
-                    overLimitList.add(restaurant);
+                    currentPageList.add(restaurant);
                 }
             }
             else{
+                int maxIndex = (pageNumber * restaurantLimitPerPage - 1);
+                int minIdex = (maxIndex - restaurantLimitPerPage + 1);
+                for(int i = minIdex; i < maxIndex; i++)
+                    if(i < restaurants.size()){
+                        currentPageList.add(restaurants.get(i));
+                    }
                 pageNumber++;
-
             }
 
 
             m.put("pageNumber", pageNumber);
             m.put("userRestaurants", userRestaurants);
-            m.put("totalRestaurants", totalRestaurants);
+            m.put("currentPageList", currentPageList);
             m.put("user", userName);
 
             return new ModelAndView(m, "home.html");
