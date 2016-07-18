@@ -25,6 +25,23 @@ public class Main {
             String name = session.attribute(SESSION_USER);
             User user = users.get(name);
 
+//            List<Bottle> bottlePages = new ArrayList<>();
+//            String pageString = request.queryParams("page");
+//            int page = Integer.valueOf(pageString);
+//            int itemsPerPage = 5;
+//            int newPageStart = page * itemsPerPage;
+//            String url = "/";
+//
+//            for (Bottle bottle : user.myBottles){
+//                bottlePages.add(bottle);
+//                }
+//
+//            }
+//            for (int i = newPageStart; i < (newPage + itemsPerPage); i++){
+//
+//                url += "?page=" + page;
+//            }
+
             if(user == null){
                 m.put("allBottles", allBottles);
                 return new ModelAndView(m, "index.html");
@@ -34,6 +51,11 @@ public class Main {
                 m.put("allBottles", allBottles);
                 return new ModelAndView(m, "index.html");
             }
+            //m.put("bottlePages", bottlePages);
+//            m.put("url", url);
+//            m.put("itemsPerPage", itemsPerPage);
+//            m.put("page", page);
+//            m.put("newPage", newPage);
         }, new MustacheTemplateEngine());
 
         Spark.get("/login", (request, response) -> {
@@ -100,11 +122,13 @@ public class Main {
 
             String bottleName = request.queryParams("bottleName");
 
+            Bottle foundBottle = null;
             for(Bottle bottle : user.myBottles){
                 if(bottle.getName().equals(bottleName)){
-                    user.myBottles.remove(bottle);
-                    allBottles.remove(bottle);
+                foundBottle = bottle;
                 }
+                user.myBottles.remove(foundBottle);
+                allBottles.remove(foundBottle);
             }
             response.redirect("/");
             return "";
